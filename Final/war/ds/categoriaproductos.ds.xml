@@ -1,0 +1,12 @@
+<DataSource
+    ID="categoriaproductos"
+    serverType="sql"
+    tableName="categoriaproductos"
+>
+    <fields>
+        <field name="idCategoriaProductos" type="sequence" primaryKey="true" hidden="true" />
+        <field name="nombre" type="text"/>   
+        <field name="padre" type="integer" foreignKey="categoriaproductos.idCategoriaProductos" displayField="nombre" valueField="idCategoriaProductos" />
+    </fields>
+    
+</DataSource>

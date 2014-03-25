@@ -1,0 +1,23 @@
+<DataSource
+    ID="informes"
+    serverType="sql"
+    tableName="informes"
+>
+    <fields>
+        <field name="idInforme" type="sequence" primaryKey="true" hidden="true" />
+        <field name="titulo" type="text" />
+        <field name="descripcion" type="text" />        
+    	<field name="idCliente" type="integer" foreignKey="cliente.idCliente"/>
+    	 
+    </fields>
+    
+    <operationBindings>
+    <!-- http://www.smartclient.com/smartgwtee/javadoc/com/smartgwt/client/docs/CustomQuerying.html -->
+<operationBinding operationId="query" operationType="fetch">
+ <customSQL>
+select * from factura 
+</customSQL>
+</operationBinding> 
+   </operationBindings>
+    
+</DataSource>

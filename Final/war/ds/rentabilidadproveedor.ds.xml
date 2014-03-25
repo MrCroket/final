@@ -1,0 +1,29 @@
+<DataSource
+    ID="rentabilidadproveedor"
+    serverType="sql"
+    tableName="rentabilidadproveedor"
+>
+    <fields>
+        <field name="Proveedor" type="text" /> 
+        <field name="Ganado" type="integer" />   
+    	 
+    </fields>
+    
+    <operationBindings>
+    <!-- http://www.smartclient.com/smartgwtee/javadoc/com/smartgwt/client/docs/CustomQuerying.html -->
+<operationBinding operationId="queryDashboard" operationType="fetch">
+ <customSQL>
+SELECT proveedor.nombre AS Proveedor, factura_productos.cantidad * SUM( productos.PrecioVenta - productos.PrecioCompra ) AS Ganado
+FROM productos
+INNER JOIN factura_productos ON productos.idProducto = factura_productos.idProducto
+INNER JOIN factura ON factura_productos.idfactura = factura.idfactura
+INNER JOIN clientes ON factura.idCliente = clientes.idCliente
+INNER JOIN proveedor ON proveedor.idProveedor = productos.idProveedor
+GROUP BY Proveedor
+ORDER BY Ganado DESC 
+LIMIT 0 , 30
+</customSQL> 
+</operationBinding> 
+   </operationBindings>
+    
+</DataSource>

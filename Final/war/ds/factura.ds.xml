@@ -1,0 +1,13 @@
+<DataSource
+    ID="factura"
+    serverType="sql"
+    tableName="factura"
+>
+    <fields>
+        <field name="idFactura" type="sequence" displayField="idFactura" valueField="idFactura" primaryKey="true" hidden="true" />
+        <field name="idCliente" type="integer" foreignKey="clientes.idCliente" displayField="nombre" valueField="idCliente" />
+        <field name="precio" type="integer" />
+        <field name="fecha" type="date" displayField="fecha" valueField="fecha" />
+    </fields>
+    
+</DataSource>

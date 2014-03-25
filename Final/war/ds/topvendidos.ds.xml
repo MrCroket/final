@@ -1,0 +1,28 @@
+<DataSource
+    ID="topvendidos"
+    serverType="sql"
+    tableName="topvendidos"
+>	
+    <fields>
+        <field name="idInformes" type="sequence" primaryKey="true" hidden="true" />
+        <field name="Producto" type="text" /> 
+        <field name="Cantidad" type="integer" />   
+    	 
+    </fields>
+    
+    <operationBindings>
+    <!-- http://www.smartclient.com/smartgwtee/javadoc/com/smartgwt/client/docs/CustomQuerying.html -->
+<operationBinding operationId="queryDashboard" operationType="fetch">
+ <customSQL>
+SELECT productos.nombre AS Producto, COUNT( factura_productos.idProducto ) AS Cantidad
+FROM factura
+INNER JOIN factura_productos ON factura.idFactura = factura_productos.idFactura
+INNER JOIN productos ON factura_productos.idProducto = productos.idProducto
+GROUP BY Producto
+ORDER BY Cantidad DESC 
+LIMIT 3
+</customSQL>
+</operationBinding> 
+   </operationBindings>
+    
+</DataSource>

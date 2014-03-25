@@ -1,0 +1,51 @@
+<DataSource 
+    ID="batchRun" 
+    serverType="sql" 
+>
+    <fields>
+        <!-- integer ID of the batch run -->
+        <field name="id" type="sequence"/>
+
+        <!-- branch targeted by the batch run -->
+        <field name="branch" type="text"/>
+
+        <!-- starting time of this batch run; for all testResult records
+             in this run, matches the field testResult.batchStartTime -->
+        <field name="batchStartTime" type="datetime"/>
+
+        <!-- completion time of the batch run -->
+        <field name="batchEndTime" type="datetime"/>
+        
+        <!-- user who is running the batch -->
+        <field name="user" type="text"/>
+
+        <!-- message documenting the batch run -->
+        <field name="log" type="text" length="100000"/>
+
+    </fields>
+
+    <operationBindings>
+        <!-- fetch one record (most recent) per branch -->
+        <operationBinding
+             operationId="branches"
+             operationType="fetch">
+            <selectClause>*
+            </selectClause>
+            <tableClause>batchRun</tableClause>
+            <whereClause>id in (select id from 
+                (select branch, max(id) as id from batchrun group by branch)
+                as topBranches where branch is not null)
+            </whereClause>
+        </operationBinding>
+        <!-- fetch most recent record for one branch excluding one id-->
+        <operationBinding
+             operationId="fetchPredecessor"
+             operationType="fetch">
+            <selectClause>max(batchStartTime) as batchStartTime
+            </selectClause>
+            <tableClause>batchRun</tableClause>
+            <whereClause>id != $criteria.id and branch = $criteria.branch
+            </whereClause>
+        </operationBinding>
+    </operationBindings>
+</DataSource>

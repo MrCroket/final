@@ -1,0 +1,34 @@
+<DataSource
+    ID="rentabilidadsexos"
+    serverType="sql"
+    tableName="rentabilidadsexos"
+>
+    <fields>
+        <field name="Sexo" type="text" /> 
+        <field name="Ganado" type="integer" />   
+    	 
+    </fields>
+    
+    <operationBindings>
+    <!-- http://www.smartclient.com/smartgwtee/javadoc/com/smartgwt/client/docs/CustomQuerying.html -->
+<operationBinding operationId="queryDashboard" operationType="fetch">
+ <customSQL>
+select sexo.sexo as Sexo, factura_productos.cantidad*sum(productos.PrecioVenta-productos.PrecioCompra) as Ganado from productos
+inner join factura_productos
+on
+productos.idProducto=factura_productos.idProducto
+inner join factura
+on
+factura_productos.idFactura=factura.idFactura
+inner join clientes
+on factura.idCliente = clientes.idCliente
+inner join sexo 
+on 
+clientes.idSexo = sexo.idSexo
+group by Sexo
+order by Ganado desc;
+</customSQL> 
+</operationBinding> 
+   </operationBindings>
+    
+</DataSource>

@@ -1,0 +1,28 @@
+<DataSource
+    ID="toprentabilidadclientes"
+    serverType="sql"
+    tableName="toprentabilidadclientes"
+>
+    <fields>
+        <field name="Cliente" type="text" /> 
+        <field name="Ingresos" type="integer" />   
+    	 
+    </fields>
+    
+    <operationBindings>
+    <!-- http://www.smartclient.com/smartgwtee/javadoc/com/smartgwt/client/docs/CustomQuerying.html -->
+<operationBinding operationId="queryDashboard" operationType="fetch">
+ <customSQL>
+SELECT clientes.nombre AS Cliente, factura_productos.cantidad * SUM( productos.PrecioVenta - productos.PrecioCompra ) AS Ingresos
+FROM factura
+INNER JOIN factura_productos ON factura.idFactura = factura_productos.idFactura
+INNER JOIN clientes ON factura.idCliente = clientes.idCliente
+INNER JOIN productos
+GROUP BY Cliente
+ORDER BY Ingresos DESC 
+LIMIT 3
+</customSQL>
+</operationBinding> 
+   </operationBindings>
+    
+</DataSource>

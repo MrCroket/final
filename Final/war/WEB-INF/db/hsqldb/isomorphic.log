@@ -1,0 +1,4 @@
+/*C3*/SET SCHEMA PUBLIC
+CREATE TABLE isc_admin_test (foo varchar(1))
+DROP TABLE isc_admin_test
+DISCONNECT

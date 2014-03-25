@@ -1,0 +1,11 @@
+<DataSource
+    ID="proveedor"
+    serverType="sql"
+    tableName="proveedor"
+>
+    <fields>
+        <field name="idProveedor" type="sequence" primaryKey="true" hidden="true" />
+        <field name="nombre" type="text" />     
+    </fields>
+    
+</DataSource>

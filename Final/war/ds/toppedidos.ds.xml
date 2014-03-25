@@ -1,0 +1,27 @@
+<DataSource
+    ID="toppedidos"
+    serverType="sql"
+    tableName="toppedidos"
+>	
+    <fields>
+        <field name="idInformes" type="sequence" primaryKey="true" hidden="true" />
+        <field name="Cliente" type="text" />      
+        <field name="pedidos" type="integer" />   
+    	 
+    </fields>
+    
+    <operationBindings>
+    <!-- http://www.smartclient.com/smartgwtee/javadoc/com/smartgwt/client/docs/CustomQuerying.html -->
+<operationBinding operationId="queryDashboard" operationType="fetch">
+ <customSQL>
+SELECT clientes.nombre as Cliente, count(factura.idFactura) AS Pedidos 
+FROM clientes
+inner JOIN factura 
+ON clientes.idCliente=factura.idCliente
+group by Cliente
+order by Pedidos desc limit 10;
+</customSQL>
+</operationBinding> 
+   </operationBindings>
+    
+</DataSource>

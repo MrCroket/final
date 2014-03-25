@@ -1,0 +1,57 @@
+<DataSource 
+    ID="testResult" 
+    serverType="sql"
+>
+  <fields>
+      <!-- path to the test file, eg, "DataBinding/clientCustomDS.test" -->
+      <field name="testFile" type="text" primaryKey="true"/>
+
+      <!-- values "success", "failure", "timeout" -->
+      <field name="result" type="text"/>
+
+      <!-- error details -->
+      <field name="details" type="text" length="100000"/>
+
+      <!-- developer console messages -->
+      <field name="messages" type="text" length="100000"/>
+      
+      <!-- start and end time of test -->
+      <field name="startTime" type="datetime" primaryKey="true"/>
+      <field name="endTime" type="datetime"/>
+
+      <!-- start time of the associated batch run -->
+      <field name="batchStartTime" type="datetime"/>
+
+      <!-- branch targeted by associated batch run-->
+      <field name="branch" type="text"/>
+
+      <!-- screen snapshot (for a test failure) -->
+      <field name="capture" type="imageFile"/>
+      <field name="capture_date_created" ignore="true"/>
+
+  </fields>
+  
+  <operationBindings>
+      <!-- Special fetch operation - fetch all batch times -->
+      <operationBinding 
+           operationId="batchTimes"
+           operationType="fetch" 
+           customValueFields="batchStartTime" 
+           customCriteriaFields="batchStartTime">
+          <selectClause>
+              distinct batchStartTime
+          </selectClause>
+          <tableClause>testResult</tableClause>
+          <whereClause>($defaultWhereClause)</whereClause>
+      </operationBinding>
+      <operationBinding 
+           operationId="fetchFileResults"
+           operationType="fetch">
+          <selectClause> 
+              testFile, result
+          </selectClause>
+          <tableClause>testResult</tableClause>
+          <whereClause>($defaultWhereClause)</whereClause>
+      </operationBinding>
+  </operationBindings>
+</DataSource>

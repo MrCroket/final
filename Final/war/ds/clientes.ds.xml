@@ -1,0 +1,19 @@
+<DataSource
+    ID="clientes"
+    serverType="sql"
+    tableName="clientes"
+>
+    <fields>
+        <field name="idCliente" type="sequence" primaryKey="true" hidden="true" />
+        <field name="nombre" type="text" />
+        <field name="password" type="text"/>
+        <field name="email" type="text" />
+        <field name="idEstado" type="integer" foreignKey="estado.idEstado" displayField="estado" valueField="idEstado" />
+        <field name="idPais" type="integer" foreignKey="paises.idPais" displayField="nombre" valueField="idPais" />
+         <field name="idSexo" type="integer" foreignKey="sexo.idSexo" displayField="sexo" valueField="idSexo" />
+        <field name="idMetodoPagoPreferido" type="integer" foreignKey="metodopago.idMetodoPago" displayField="metodoPago" valueField="idMetodoPago" />
+        <field name="puntos" type="text" />
+        
+    </fields>
+    
+</DataSource>

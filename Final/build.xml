@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="BuiltInDS" basedir=".">
+
+  <target name="war" description="Create a war file">
+    <zip destfile="BuiltInDS.war" basedir="war"/>
+  </target>
+
+
+
+</project>

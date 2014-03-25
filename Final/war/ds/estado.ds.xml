@@ -1,0 +1,12 @@
+<DataSource
+    ID="estado"
+    serverType="sql"
+    tableName="estado"
+>
+    <fields>
+        <field name="idEstado" type="sequence" primaryKey="true" hidden="true" />
+        <field name="estado" type="text" />
+        
+    </fields>
+    
+</DataSource>

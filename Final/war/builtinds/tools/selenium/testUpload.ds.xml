@@ -1,0 +1,74 @@
+<DataSource 
+    ID="testUpload" 
+    serverType="sql" 
+>
+<scriptImport>java.io.*</scriptImport>
+<scriptImport>com.isomorphic.servlet.*</scriptImport>
+
+<script language="java">
+    
+     DSResponse dsResponse = new DSResponse(dataSource);
+
+    // skip anything that doesn't appear to be a file upload
+    if (!DataSource.isAdd   (dsRequest.getOperationType()) &amp;&amp;
+        !DataSource.isUpdate(dsRequest.getOperationType())) {
+        dsResponse.addError("id", "Unsupported operation requested");
+        return dsResponse;
+    }
+     
+    // get the unqualified filename from DSRequest
+    ISCFileItem item = dsRequest.getUploadedFile("file");
+    String fileName = item.getFileName();
+    if (fileName == null) fileName = "";
+
+    // canonicalize unqualified filename - force to end in .rctest.html
+    if (!fileName.endsWith(".rctest.html")) fileName += ".rctest.html";
+
+    // get the server path from the DSRequest
+    String serverPath = (String)dsRequest.getFieldValue("serverPath");
+    if (serverPath == null) serverPath = "";
+
+    // canonicalize serverPath - force relative path and final /
+    if (!serverPath.endsWith("/")) serverPath += "/";
+    serverPath.replaceFirst("^/+", "");
+
+    // validate the filename here due to the file-upload type's complexity
+    if (!fileName.matches("^[a-zA-Z_$][0-9a-zA-Z_$.]*$")) {
+        dsResponse.addError("file", "Invalid file name - it name must start with a letter, " +
+            "$, or _, and can only contain charactere legal in a Java identifier or .");
+        return dsResponse;
+    }
+
+    // finally, get webRoot and form the path for our file operation
+    String webRoot = Config.getGlobal().getPath("webRoot"); 
+    if (!webRoot.endsWith("/")) webRoot += "/";
+
+    try {
+        // create the upload filedirectory if needed
+        String uploadPath = webRoot + serverPath;
+        File file = new File(uploadPath);
+        file.mkdirs();
+        // now we can write to the requested upload path the file uploaded
+        FileOutputStream out = new FileOutputStream(uploadPath + fileName);
+        out.write(item.get());
+        out.close();
+    } catch (Exception e) {
+        String report = e.toString();
+        dsResponse.addError("serverPath", "Unable to write file " + fileName + 
+                            ": " + report.replaceAll(webRoot,"&lt;webRoot&gt;/"));
+    }
+
+    return dsResponse;
+
+</script>
+<fields>
+  <field name="id"         type="sequence" title="ID" primaryKey="true"/>
+  <field name="file"       type="binary"   title="File"/>
+  <field name="serverPath" type="text"     title="Server Path">
+    <validators>
+      <validator type="regexp" expression="^[0-9a-zA-Z_$/]*$" 
+errorMessage="Server path can only contain characters from a legal Java identifier or /"/>
+    </validators>
+  </field>
+</fields>
+</DataSource>

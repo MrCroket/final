@@ -1,0 +1,27 @@
+<DataSource
+    ID="toprentabilidadproductos"
+    serverType="sql"
+    tableName="toprentabilidadproductos"
+>
+    <fields>
+        <field name="Producto" type="text" /> 
+        <field name="Rentabilidad" type="integer" />   
+    	 
+    </fields>
+    
+    <operationBindings>
+    <!-- http://www.smartclient.com/smartgwtee/javadoc/com/smartgwt/client/docs/CustomQuerying.html -->
+<operationBinding operationId="queryDashboard" operationType="fetch">
+ <customSQL>
+SELECT productos.nombre AS Producto, factura_productos.cantidad * SUM( productos.PrecioVenta - productos.PrecioCompra ) AS Rentabilidad
+FROM factura
+INNER JOIN factura_productos ON factura.idFactura = factura_productos.idFactura
+INNER JOIN productos ON factura_productos.idProducto = productos.idProducto
+GROUP BY Producto
+ORDER BY Rentabilidad DESC 
+LIMIT 3
+</customSQL> 
+</operationBinding> 
+   </operationBindings>
+    
+</DataSource>

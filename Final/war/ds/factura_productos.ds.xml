@@ -1,0 +1,15 @@
+<DataSource
+    ID="factura_productos"
+    serverType="sql"
+    tableName="factura_productos"
+>
+    <fields>
+        <field name="idFactura_productos" type="sequence" primaryKey="true" hidden="true" />
+        <field name="idFactura" type="integer" foreignKey="factura.idFactura" displayField="idFactura" valueField="idFactura" />
+        <field name="idProducto" type="integer" foreignKey="productos.idProducto" displayField="nombre" valueField="idProducto" />
+        <field name="cantidad" type="integer" />
+        
+        
+    </fields>
+    
+</DataSource>

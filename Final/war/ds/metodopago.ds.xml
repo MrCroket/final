@@ -1,0 +1,12 @@
+<DataSource
+    ID="metodopago"
+    serverType="sql"
+    tableName="metodopago"
+>
+    <fields>
+        <field name="idMetodoPago" type="sequence" primaryKey="true" hidden="true" />
+        <field name="metodoPago" type="text"/>
+        
+    </fields>
+    
+</DataSource>

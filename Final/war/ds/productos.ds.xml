@@ -1,0 +1,17 @@
+<DataSource
+    ID="productos"
+    serverType="sql"
+    tableName="productos"
+>
+    <fields>
+        <field name="idProducto" type="sequence" primaryKey="true" hidden="true" />
+        <field name="idCategoriaProducto" type="integer" foreignKey="categoriaproductos.idCategoriaProductos" displayField="nombre" valueField="idCategoriaProductos" />
+        <field name="nombre" type="text"/>
+        <field name="descripcion" type="text" />
+        <field name="cantidad" type="integer" />
+        <field name="idProveedor" type="integer" foreignKey="proveedor.idProveedor" displayField="nombre" valueField="idProveedor" />
+        <field name="precioCompra" type="integer" />  
+        <field name="precioVenta" type="integer" />   
+    </fields>
+    
+</DataSource>
