@@ -1,7 +1,7 @@
 <DataSource
-    ID="paises"
+    ID="idiomas"
     serverType="sql"
-    tableName="paises"
+    tableName=""idiomas""
 >
     <fields>
         <field name="id" type="sequence" primaryKey="true" hidden="true" />

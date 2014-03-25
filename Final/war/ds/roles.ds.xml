@@ -1,12 +1,13 @@
 <DataSource
-    ID="paises"
+    ID="roles"
     serverType="sql"
-    tableName="paises"
+    tableName="roles"
 >
     <fields>
         <field name="id" type="sequence" primaryKey="true" hidden="true" />
         <field name="nombre" type="text" />  
         <field name="codigo" type="text" />  
+        <field name="admin" type="tinyint" />
     </fields>
     
 </DataSource>

@@ -1,12 +1,11 @@
 <DataSource
-    ID="paises"
+    ID="tags"
     serverType="sql"
-    tableName="paises"
+    tableName="tags"
 >
     <fields>
         <field name="id" type="sequence" primaryKey="true" hidden="true" />
-        <field name="nombre" type="text" />  
-        <field name="codigo" type="text" />  
+        <field name="nombre" type="text" /> 
     </fields>
     
 </DataSource>

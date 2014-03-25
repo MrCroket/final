@@ -1,0 +1,14 @@
+<DataSource
+    ID="posts"
+    serverType="sql"
+    tableName="posts"
+>
+    <fields>
+        <field name="id" type="sequence" primaryKey="true" hidden="true" />
+        <field name="titulo" type="text"/>
+        <field name="contenido" type="text" />
+        <field name="autor" type="integer" foreignKey="usuarios.id" displayField="nombre" valueField="id" />
+        <field name="fecha" type="date" displayField="fecha" valueField="fecha" />
+    </fields>
+    
+</DataSource>

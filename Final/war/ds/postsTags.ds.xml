@@ -1,0 +1,12 @@
+<DataSource
+    ID="postsTags"
+    serverType="sql"
+    tableName="postsTags"
+>
+    <fields>
+        <field name="id" type="sequence" primaryKey="true" hidden="true" />
+        <field name="post" type="integer" foreignKey="posts.id" displayField="titulo" valueField="id" />
+        <field name="tag" type="integer" foreignKey="tags.id" displayField="nombre" valueField="id" />
+    </fields>
+    
+</DataSource>

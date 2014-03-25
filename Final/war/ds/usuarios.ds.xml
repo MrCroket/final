@@ -1,0 +1,22 @@
+<DataSource
+    ID="posts"
+    serverType="sql"
+    tableName="posts"
+>
+    <fields>
+        <field name="id" type="sequence" primaryKey="true" hidden="true" />
+        <field name="login" type="text"/>
+        <field name="pass" type="text" />
+        <field name="nombre" type="text"/>
+        <field name="apellidos" type="text"/>
+        <field name="idioma" type="integer" foreignKey="idiomas.id" displayField="nombre" valueField="id" />
+        <field name="pais" type="integer" foreignKey="paises.id" displayField="nombre" valueField="id" />
+        <field name="rol" type="integer" foreignKey="roles.id" displayField="nombre" valueField="id" />
+        <field name="sexo" type="tinyint" />
+        <field name="avatar" type="text"/>
+        <field name="acerca" type="text"/>
+        <field name="estado" type="tinyint"/>
+        <field name="fecha" type="date" displayField="fecha" valueField="fecha" />
+    </fields>
+    
+</DataSource>
